@@ -95,10 +95,15 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
 //render search
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const restaurantFilted = restaurantList.results.filter((restaurant) => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants: restaurantFilted, keyword: keyword })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const restaurantFilted = restaurants.filter(data => {
+        return data.name.toLowerCase().includes(keyword.toLowerCase()) || data.category.toLowerCase().includes(keyword.toLowerCase())
+      })
+      res.render('index', { restaurants: restaurantFilted, keyword: keyword })
+    })
+    .catch(error => console.log(error))
 })
 
 // start and listen on the Express server

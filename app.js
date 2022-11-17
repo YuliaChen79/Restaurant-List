@@ -2,12 +2,12 @@
 const express = require('express')
 const app = express()
 const port = 3000
-
-// require express-handlebars here
 const exphbs = require('express-handlebars')
 
 //require mongoose
 const mongoose = require('mongoose')
+const Restaurant = require('./models/restaurant')
+const bodyParser = require('body-parser')
 
 //Mongoose connect
 require('dotenv').config()
@@ -30,11 +30,15 @@ app.set('view engine', 'handlebars')
 
 //setting static files
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // routes setting
 //render index
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.error(error))
 })
 
 //render show

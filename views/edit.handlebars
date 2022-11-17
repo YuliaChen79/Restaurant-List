@@ -1,0 +1,56 @@
+<h1 class="mb-1 restaurant-show-title">修改餐廳資訊</h1>
+<div class="container">
+  <form action="/restaurants/{{restaurantData._id}}/edit" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">餐廳名稱：</label>
+      <input type="text" value="{{restaurantData.name}}" name="name">
+    </div>
+
+    <div class="mb-3">
+      <label for="en_name" class="form-label">英文名稱：</label>
+      <input type="text" value="{{restaurantData.name_en}}" name="name_en">
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">風格分類：</label>
+      <input type="text" value="{{restaurantData.category}}" name="category">
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">圖片連結：</label>
+      <input type="url" value="{{restaurantData.image}}" name="image">
+    </div>
+
+    <div class="mb-3">
+      <label for="location" class="form-label">店家地址：</label>
+      <input type="text" value="{{restaurantData.location}}" name="location">
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">店家電話：</label>
+      <input type="text" value="{{restaurantData.phone}}" name="phone">
+    </div>
+
+    <div class="mb-3">
+      <label for="google_map" class="form-label">地圖連結：</label>
+      <input type="url" value="{{restaurantData.google_map}}" name="google_map">
+    </div>
+
+    <div class="mb-3">
+      <label for="rating" class="form-label">整體評分：</label>
+      <input type="number" value="{{restaurantData.rating}}" name="rating">
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">餐廳描述：</label>
+      <input type="text" value="{{restaurantData.description}}" name="description">
+    </div>
+
+    <button type="submit" class="btn btn-primary">儲存</button>
+    <a href="/">
+      <button type="button" class="btn btn-outline-secondary">
+        返回首頁
+      </button>
+    </a>
+  </form>
+</div>

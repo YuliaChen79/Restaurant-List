@@ -41,11 +41,22 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+//render new
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+//add new restaurant
+app.post('/restaurants', (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 //render show
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = restaurantList.results.filter(restaurant => restaurant.id === Number(req.params.restaurant_id))
   res.render('show', { restaurant: restaurant[0] })
-})
 
 //render search
 app.get('/search', (req, res) => {

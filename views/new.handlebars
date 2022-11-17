@@ -1,0 +1,56 @@
+<h1 class="mb-1 restaurant-show-title">新增餐廳</h1>
+<div class="container">
+  <form action="/restaurants" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">餐廳名稱：</label>
+      <input type="text" placeholder="路口早餐店..." name="name">
+    </div>
+
+    <div class="mb-3">
+      <label for="en_name" class="form-label">英文名稱：</label>
+      <input type="text" placeholder="Restaurant..." name="name_en">
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">風格分類：</label>
+      <input type="text" placeholder="中式料理" name="category">
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">圖片連結：</label>
+      <input type="url" placeholder="http://abcd..." name="image">
+    </div>
+
+    <div class="mb-3">
+      <label for="location" class="form-label">店家地址：</label>
+      <input type="text" placeholder="台北市" name="location">
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">店家電話：</label>
+      <input type="text" placeholder="0212345678" name="phone">
+    </div>
+
+    <div class="mb-3">
+      <label for="google_map" class="form-label">地圖連結：</label>
+      <input type="url" placeholder="http://abcd..." name="google_map">
+    </div>
+
+    <div class="mb-3">
+      <label for="rating" class="form-label">整體評分：</label>
+      <input type="number" placeholder="5" name="rating">
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">餐廳描述：</label>
+      <input type="text" placeholder="餐點好吃..." name="description">
+    </div>
+
+    <button type="submit" class="btn btn-primary">新增</button>
+    <a href="/">
+      <button type="button" class="btn btn-outline-secondary">
+        返回首頁
+      </button>
+    </a>
+  </form>
+</div>

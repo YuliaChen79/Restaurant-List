@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 //render show
 app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.filter(restaurant => restaurant.id == req.params.restaurant_id)
+  const restaurant = restaurantList.results.filter(restaurant => restaurant.id === Number(req.params.restaurant_id))
   res.render('show', { restaurant: restaurant[0] })
 })
 

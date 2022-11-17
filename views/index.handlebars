@@ -46,6 +46,9 @@
           </a>
           <div class="card-footer d-flex justify-content-end flex-wrap">
             <a href="/restaurants/{{this._id}}/edit"><button class="btn btn-link btn-sm">Edit</button></a>
+            <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+              <button type="submit">delete</button>
+            </form>
           </div>
         </div>
 

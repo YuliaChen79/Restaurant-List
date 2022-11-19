@@ -16,8 +16,8 @@
 * Bootstrap v5.1.3
 * Popper v2.9.1
 * Font Awesome
-* MONGODB
-
+* MongoDB
+* Mongoose v5.9.7
 
 ## 安裝與執行步驟
 1. 請先確認已安裝Node.js 與 npm

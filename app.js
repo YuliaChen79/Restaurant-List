@@ -8,6 +8,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override') 
 
 //Mongoose connect
 require('dotenv').config()
@@ -31,6 +32,7 @@ app.set('view engine', 'handlebars')
 //setting static files
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // routes setting
 //render index
@@ -39,6 +41,20 @@ app.get('/', (req, res) => {
     .lean()
     .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
+})
+
+//render search
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  Restaurant.find()
+    .lean()
+    .then(restaurants => {
+      const restaurantFilted = restaurants.filter(data => {
+        return data.name.toLowerCase().includes(keyword.toLowerCase()) || data.category.toLowerCase().includes(keyword.toLowerCase())
+      })
+      res.render('index', { restaurants: restaurantFilted, keyword: keyword })
+    })
+    .catch(error => console.log(error))
 })
 
 //render new
@@ -72,7 +88,7 @@ app.get('/restaurants/:restaurantId/edit', (req, res) => {
 })
 
 //edit resstaurant data
-app.post('/restaurants/:restaurantId/edit', (req, res) => {
+app.put('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   Restaurant.findById(restaurantId)
@@ -92,22 +108,8 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//render search
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  Restaurant.find()
-    .lean()
-    .then(restaurants => {
-      const restaurantFilted = restaurants.filter(data => {
-        return data.name.toLowerCase().includes(keyword.toLowerCase()) || data.category.toLowerCase().includes(keyword.toLowerCase())
-      })
-      res.render('index', { restaurants: restaurantFilted, keyword: keyword })
-    })
-    .catch(error => console.log(error))
-})
-
 //delete restaurant
-app.post('/restaurants/:restaurantId/delete', (req, res) => {
+app.delete('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   Restaurant.findById(restaurantId)
     .then(restaurant => restaurant.remove())

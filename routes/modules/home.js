@@ -21,7 +21,6 @@ router.get('/search', (req, res) => {
     'ratingDesc': {rating: 'desc'},
     'ratingAsc': {rating: 'asc'}
   }
-  console.log(options[sort])
   Restaurant.find()
     .lean()
     .sort(options[sort])

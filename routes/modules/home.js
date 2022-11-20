@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 //render search
 router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
+  const keyword = req.query.keywords
   Restaurant.find()
     .lean()
     .then(restaurants => {

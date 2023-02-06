@@ -9,34 +9,39 @@ router.get('/new', (req, res) => {
 
 //add new restaurant
 router.post('/', (req, res) => {
-  Restaurant.create(req.body)
+  const userId = req.user._id
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 //render show
-router.get("/:restaurantId", (req, res) => {
-  const restaurantId = req.params.restaurantId
-  Restaurant.findById(restaurantId)
+router.get("/:id", (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurantData => res.render("show", { restaurantData }))
     .catch(err => console.log(err))
 })
 
 //render edit
-router.get('/:restaurantId/edit', (req, res) => {
-  const restaurantId = req.params.restaurantId
-  Restaurant.findById(restaurantId)
+router.get('/:id/edit', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurantData => res.render("edit", { restaurantData }))
     .catch(err => console.log(err))
 })
 
 //edit resstaurant data
-router.put('/:restaurantId', (req, res) => {
-  const restaurantId = req.params.restaurantId
+router.put('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
-  Restaurant.findById(restaurantId)
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => {
       restaurant.name = name
       restaurant.name_en = name_en
@@ -49,14 +54,15 @@ router.put('/:restaurantId', (req, res) => {
       restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${restaurantId}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => console.log(error))
 })
 
 //delete restaurant
-router.delete('/:restaurantId', (req, res) => {
-  const restaurantId = req.params.restaurantId
-  Restaurant.findById(restaurantId)
+router.delete('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+  Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

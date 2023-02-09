@@ -25,7 +25,7 @@ const SEED_USER = [
 db.once('open', () => {
   return Promise.all(SEED_USER.map(user => {
     const { name, email, password, index } = user
-    bcrypt
+    return bcrypt
       .genSalt(10)
       .then(salt => bcrypt.hash(password, salt))
       .then(hash => User.create({
@@ -44,5 +44,6 @@ db.once('open', () => {
   }))
   .then(() => {
     console.log('done')
+    process.exit()
   })
 })
